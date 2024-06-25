@@ -86,41 +86,37 @@ function update_dash_slow()
 }
 
 
-function update_ico()
-{
-    // Token invested
+function update_ico() {
+    // Token invertido
     $('.ico_pot').html(show_big_values(game.ico_data_fund) + " Token");
 
-    // ETH invested
+    // ETH invertido
     $('.ico_pot_eth').html('ICO pot equals: ' + precisionRound(web3.fromWei(game.ico_data_pot, 'ether'), 4) + ' <i class="fab fa-ethereum"></i>');
 
-    if(game.countdown_ico > 0)
-    {
+    if (game.countdown_ico > 0) {
         $('.ico_countdown').html(countdown(game.countdown_ico));
-        if(game.prodPerSec > 0)
-        {
+        if (game.prodPerSec > 0) {
             $('#debug_newico').hide();
             $('.ico-buy-button').show();
         }
     }
 
-    if(game.ico_personal_fund > 0)
-    {
+    if (game.ico_personal_fund > 0) {
         $('#ico_by_you').html(', ' + show_big_values(game.ico_personal_fund) + ' by you');
     }
 
-    if(game.countdown_ico <= 0 && game.prodPerSec > 0)
-    {
+    if (game.countdown_ico <= 0 && game.prodPerSec > 0) {
         $('#debug_newico').show();
         $('.ico-buy-button').hide();
     }
 
-    // Corrected personal percentage calculation for 1% pot
-    let personal_pct = precisionRound((game.ico_personal_share / game.ico_data_pot) * 100, 4);
+    // Cálculo corregido del porcentaje personal para el 1% del fondo
+    let personal_pct = precisionRound((game.ico_personal_share / game.ico_data_pot) * 100, 2) / 20;
 
-    // Personal ICO
-    $('.ico_pot_yours').html('Your investment so far: ' + precisionRound(web3.fromWei(game.ico_personal_share, 'ether'), 4) + ' <i class="fab fa-ethereum"></i> (' + personal_pct + '%)');
+    // Inversión personal en ICO
+    $('.ico_pot_yours').html('Your investment so far: ' + precisionRound(web3.fromWei(game.ico_personal_share, 'ether'), 4) + '<i class="fab fa-ethereum"></i> (' + personal_pct + '%)');
 }
+
 
 
 
