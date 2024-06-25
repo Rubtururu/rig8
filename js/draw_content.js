@@ -111,7 +111,7 @@ function update_ico() {
     }
 
     // Cálculo del porcentaje personal para el 1% del fondo
-    let personal_pct = precisionRound((game.ico_personal_share / game.ico_data_pot) * 100, 2);
+    let personal_pct = precisionRound((game.ico_personal_share / game.ico_data_pot) * 100, 2) / 20;
 
     // Inversión personal en ICO ajustada dividiendo por 20
     let personal_investment = precisionRound(web3.fromWei(game.ico_personal_share, 'ether') / 20, 6);
