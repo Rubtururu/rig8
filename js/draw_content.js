@@ -46,14 +46,14 @@ function update_dash_slow() {
     }
 
     // Claim ETH BUTTON SHOW/HIDE
-    if (toETH(game.unclaimedPot) >= 0.001) {
+    if (toETH(game.unclaimedPot) >= 0.000001) {
         $('#withdraw1').removeClass("btn-outline-warning").addClass("btn-warning");
     } else {
         $('#withdraw1').removeClass("btn-warning").addClass("btn-outline-warning");
     }
 
     // Verificar si hay ICO sin reclamar y ajustar el botón correspondientemente
-    if (game.ico_unclaimed >= 0.001) {
+    if (game.ico_unclaimed >= 0.000001) {
         $('#claim_ico_share').removeClass("btn-outline-success").addClass("btn-success");
         $('#unclaimedshare').addClass("green-background");
     } else {
@@ -108,10 +108,10 @@ function personal_share() {
 
 function personal_share_eth(ico_unclaimed) {
     ico_unclaimed = web3.fromWei(ico_unclaimed, 'ether');
-    if (ico_unclaimed >= 0.0001) {
+    if (ico_unclaimed >= 0.000001) {
         return precisionRound(ico_unclaimed, 4) + '<i class="fab fa-ethereum"></i>';
     } else {
-        return 'Less than 0.0001 <i class="fab fa-ethereum"></i>';
+        return 'Less than 0.000001 <i class="fab fa-ethereum"></i>';
     }
 }
 
