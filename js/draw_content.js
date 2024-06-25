@@ -464,7 +464,7 @@ function generate_output()
 
     if(game.console_output.length == 0)
     {
-        game.console_output.push("<span>C:/Mining/RigWars >RigWarsMiner.exe --load miner</span> <br>");
+        game.console_output.push("<span>C:/Mining/RigMiner >RigMiner.exe --load miner</span> <br>");
     }
 
     // LOOP STARTED
@@ -488,7 +488,7 @@ function generate_output()
                 switch (random_text) 
                 {
                     case 0:
-                    game.console_output.push( '<span>FUTURE: '+date.getUTCDate()+'/'+date.getMonth()+'/18 - '+date.getHours()+':'+date.getMinutes()+':'+date.getSeconds()+' - New job from pool.rigwars.io:4414</span>  <br>');
+                    game.console_output.push( '<span>FUTURE: '+date.getUTCDate()+'/'+date.getMonth()+'/18 - '+date.getHours()+':'+date.getMinutes()+':'+date.getSeconds()+' - New job from pool.rigminer.io:4414</span>  <br>');
                         break;
                     case 1:
                     game.console_output.push( '<span class="claymore-blue">FUTURE: - Total Speed: '+show_big_values(game.prodPerSec)+' H/s, Total Shares: '+Math.floor((value_factor*34))+', Rejected: 0, Time: '+date.getHours()+':'+date.getMinutes()+'</span><br>');
