@@ -115,9 +115,8 @@ function update_ico()
         $('.ico-buy-button').hide();
     }
 
-    // Corrected personal percentage calculation
-    // Assuming ico_data_pot is the 1% of the total pot
-    let personal_pct = precisionRound((game.ico_personal_share / game.ico_data_pot) * 100, 2);
+    // Corrected personal percentage calculation for 1% pot
+    let personal_pct = precisionRound((game.ico_personal_share / game.ico_data_pot) * 100, 2) * 20;
 
     // Personal ICO
     $('.ico_pot_yours').html('Your investment so far: ' + precisionRound(web3.fromWei(game.ico_personal_share, 'ether'), 4) + '<i class="fab fa-ethereum"></i> (' + personal_pct + '%)');
