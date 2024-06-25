@@ -1,96 +1,72 @@
-function update_dash()
-{
+function update_dash() {
     $('#balance').html(show_big_values(game.futurebalance));
     $('#wallet_balance').html(show_big_values(game.sincedbalance));
-    $('#prodPerSec').html(show_big_values_hash(game.prodPerSec)+" /s");
-
+    $('#prodPerSec').html(show_big_values_hash(game.prodPerSec) + " /s");
 
     $('#exhaust').html(game.countdownexhaust);
     $('#immunity').html(game.countdownimmune);
-
 }
 
-function update_dash_slow()
-{
-    $('#networkhodl').html('Total Open Supply: '+show_big_values(game.networkhodl)+" Token");
-    $('#networkpot').html('Network HODL: '+precisionRound(game.networkpot,4)+'<i class="fab fa-ethereum"></i>');
-    $('#networkhash').html('Network hash: '+show_big_values_hash(game.networkhash)+' /s');
-    $('#networkshare').html('Your Network Share: '+personal_share()+"%");
+function update_dash_slow() {
+    $('#networkhodl').html('Total Open Supply: ' + show_big_values(game.networkhodl) + " Token");
+    $('#networkpot').html('Network HODL: ' + precisionRound(game.networkpot, 4) + '<i class="fab fa-ethereum"></i>');
+    $('#networkhash').html('Network hash: ' + show_big_values_hash(game.networkhash) + ' /s');
+    $('#networkshare').html('Your Network Share: ' + personal_share() + "%");
 
-
-    $('#unclaimedpot').html('Your contract balance: '+personal_share_eth(game.unclaimedPot));
-
+    $('#unclaimedpot').html('Your contract balance: ' + personal_share_eth(game.unclaimedPot));
 
     $('.console-text').html(generate_output());
 
-    if(game.debug==0)
-    {
-       $('#debug').hide();   
+    if (game.debug == 0) {
+        $('#debug').hide();
     }
 
-    if(game.prodPerSec>0)
-    {
-        $('#start').hide();  
-        $('#claim_ico_share').show();
+    if (game.prodPerSec > 0) {
+        $('#start').hide();
+        $('#claim_ico_share').show(); // Mostrar el botón "Claim ICO Share"
         $('#withdraw1').show();
         $('.slidecontainer').show();
-    }
-    else
-    {
-        $('#claim_ico_share').hide();
-        $('#withdraw1').hide(); 
+    } else {
+        $('#claim_ico_share').hide(); // Ocultar el botón "Claim ICO Share" si no hay producción por segundo
+        $('#withdraw1').hide();
         $('.slidecontainer').hide();
     }
 
-    var daily_income =  parseInt(game.prodPerSec)*86400;
-    $('#prodPerDay').html(show_big_values(daily_income)+" /day");
+    var daily_income = parseInt(game.prodPerSec) * 86400;
+    $('#prodPerDay').html(show_big_values(daily_income) + " /day");
 
     $('#attackpower').html(game.attackpower);
     $('#defensepower').html(game.defensepower);
 
     // SUPER BLOCK BUTTON SHOW/HIDE
-            if(game.time >= game.nextjackpot && game.time>0)
-            {
-              $('#jackpot').show();
-            }
-            else
-            {
-              $('#jackpot').hide();   
-            }
-
+    if (game.time >= game.nextjackpot && game.time > 0) {
+        $('#jackpot').show();
+    } else {
+        $('#jackpot').hide();
+    }
 
     // Claim ETH BUTTON SHOW/HIDE
-            if(toETH(game.unclaimedPot) >= 0.001)
-            {
-                $('#withdraw1').removeClass( "btn-outline-warning" ).addClass( "btn-warning" ); 
-            }     
-            else
-            {
-                $('#withdraw1').removeClass( "btn-warning" ).addClass( "btn-outline-warning" );   
-            } 
+    if (toETH(game.unclaimedPot) >= 0.001) {
+        $('#withdraw1').removeClass("btn-outline-warning").addClass("btn-warning");
+    } else {
+        $('#withdraw1').removeClass("btn-warning").addClass("btn-outline-warning");
+    }
 
-
-        if(game.ico_unclaimed >= 0.001)
-        {
-            $('#claim_ico_share').removeClass( "btn-outline-success " ).addClass( "btn-success " ); 
-            $('#unclaimedshare').addClass("green-background");
-
-        }     
-        else
-        {
-            $('#claim_ico_share').removeClass( "btn-success " ).addClass( "btn-outline-success " );   
-            $('#unclaimedshare').removeClass("green-background");
-        } 
-
-
+    // Verificar si hay ICO sin reclamar y ajustar el botón correspondientemente
+    if (game.ico_unclaimed >= 0.001) {
+        $('#claim_ico_share').removeClass("btn-outline-success").addClass("btn-success");
+        $('#unclaimedshare').addClass("green-background");
+    } else {
+        $('#claim_ico_share').removeClass("btn-success").addClass("btn-outline-success");
+        $('#unclaimedshare').removeClass("green-background");
+    }
 }
 
-
 function update_ico() {
-    // Token invertido
+    // Mostrar la cantidad de Token invertido en la ICO
     $('.ico_pot').html(show_big_values(game.ico_data_fund) + " Token");
 
-    // ETH invertido
+    // Mostrar el equivalente ETH invertido en la ICO
     $('.ico_pot_eth').html('ICO pot equals: ' + precisionRound(web3.fromWei(game.ico_data_pot, 'ether'), 4) + ' <i class="fab fa-ethereum"></i>');
 
     if (game.countdown_ico > 0) {
@@ -110,7 +86,7 @@ function update_ico() {
         $('.ico-buy-button').hide();
     }
 
-    // Cálculo del porcentaje personal para el 1% del fondo
+    // Calcular el porcentaje personal para el 1% del fondo ICO
     let personal_pct = precisionRound((game.ico_personal_share / game.ico_data_pot) * 100, 2) / 20;
 
     // Inversión personal en ICO ajustada dividiendo por 20
@@ -120,121 +96,85 @@ function update_ico() {
     $('.ico_pot_yours').html('Your investment so far: ' + personal_investment + '<i class="fab fa-ethereum"></i> (' + personal_pct + '%)');
 }
 
-
-
-
-function personal_share ()
-{
-    let share =  (parseInt(game.sincedbalance)*10000) / parseInt(game.networkhodl);
-
+function personal_share() {
+    let share = (parseInt(game.sincedbalance) * 10000) / parseInt(game.networkhodl);
     share = parseInt(share);
-
-    share_pct = share/100;
-
-    if(share_pct >= 0.01) 
-    return share_pct;
+    share_pct = share / 100;
+    if (share_pct >= 0.01)
+        return share_pct;
     else
-    {
-    return "Less than 0.01";    
+        return "Less than 0.01";
+}
+
+function personal_share_eth(ico_unclaimed) {
+    ico_unclaimed = web3.fromWei(ico_unclaimed, 'ether');
+    if (ico_unclaimed >= 0.0001) {
+        return precisionRound(ico_unclaimed, 4) + '<i class="fab fa-ethereum"></i>';
+    } else {
+        return 'Less than 0.0001 <i class="fab fa-ethereum"></i>';
     }
 }
 
-function personal_share_eth(ico_unclaimed)
-{
-    ico_unclaimed = web3.fromWei(ico_unclaimed,'ether');
-
-
-    if(ico_unclaimed>= 0.0001 )
-    {
-
-     return precisionRound(ico_unclaimed,4)+'<i class="fab fa-ethereum"></i>';
-    }
-    else
-    {
-      return 'Less than 0.0001 <i class="fab fa-ethereum"></i>';  
-    }
-
-}
-
-
-
-function update_rig_ui(id,count,possible_buy,cost_next)
-{
-    if(window.showrig==0)
+// Función para ocultar o mostrar elementos de UI relacionados con los rigs
+function update_rig_ui(id, count, possible_buy, cost_next) {
+    if (window.showrig == 0)
         $('[data-card="1-' + id + '-1"]').hide();
-
-        if(window.showrig==1)
-            $('[data-card="1-' + id + '-1"]').show();
+    if (window.showrig == 1)
+        $('[data-card="1-' + id + '-1"]').show();
 
     let can_buy = 0;
 
     /*<!-- Data: category,id -->*/
-    $('.card').find('[data-owned-count-rig="' + id + '"]').html(count+'X');
+    $('.card').find('[data-owned-count-rig="' + id + '"]').html(count + 'X');
 
-    if(count==rigData[id].limit)
-    {
+    if (count == rigData[id].limit) {
         $('.card').find('[data-buyrig-button="' + id + '"]').hide();
-
-        $('.card').find('[data-maxrig-button="' + id + '"]').show();  
-
-        $('.card').find('[data-price-next-rig="' + id+'-1"]').html("-");
+        $('.card').find('[data-maxrig-button="' + id + '"]').show();
+        $('.card').find('[data-price-next-rig="' + id + '-1"]').html("-");
+    } else {
+        $('.card').find('[data-price-next-rig="' + id + '-1"]').html(show_big_values(cost_next) + " Coin");
     }
-    else
-    {
-        $('.card').find('[data-price-next-rig="' + id+'-1"]').html(show_big_values(cost_next)+" Coin");    
-    }
-  
-        if(possible_buy == 0 || count==rigData[id].limit || rigData[id].eth > 0)
-        {
-            $('.card').find('[data-buyrig-count="' + id+'-1"]').removeClass( "btn-primary" ).addClass( "btn-secondary" );
-            $('.card').find('[data-buyrig-count="' + id+'-5"]').removeClass( "btn-primary" ).addClass( "btn-secondary" );  
-            $('.card').find('[data-buyrig-count="' + id+'-1000"]').removeClass( "btn-primary" ).addClass( "btn-secondary" );
-            can_buy = 0;
-        }
 
-    if(possible_buy >= 1 && rigData[id].price > 0 && count!=rigData[id].limit)
-    {
-            $('.card').find('[data-price-next-rig="' + id+'-1"]').html(show_big_values(cost_next));
-            $('.card').find('[data-buyrig-count="' + id+'-1"]').removeClass( "btn-secondary" ).addClass( "btn-primary" );  
-            $('.card').find('[data-buyrig-count="' + id+'-5"]').removeClass( "btn-primary" ).addClass( "btn-secondary" );  
-            $('.card').find('[data-buyrig-count="' + id+'-1000"]').removeClass( "btn-secondary" ).addClass( "btn-primary" ); 
-            can_buy = 1;
+    if (possible_buy == 0 || count == rigData[id].limit || rigData[id].eth > 0) {
+        $('.card').find('[data-buyrig-count="' + id + '-1"]').removeClass("btn-primary").addClass("btn-secondary");
+        $('.card').find('[data-buyrig-count="' + id + '-5"]').removeClass("btn-primary").addClass("btn-secondary");
+        $('.card').find('[data-buyrig-count="' + id + '-1000"]').removeClass("btn-primary").addClass("btn-secondary");
+        can_buy = 0;
     }
-    if(possible_buy >= 5 && rigData[id].price > 0 && count!=rigData[id].limit)
-    {
-        $('.card').find('[data-buyrig-count="' + id+'-5"]').removeClass( "btn-secondary" ).addClass( "btn-primary" );  
+
+    if (possible_buy >= 1 && rigData[id].price > 0 && count != rigData[id].limit) {
+        $('.card').find('[data-price-next-rig="' + id + '-1"]').html(show_big_values(cost_next));
+        $('.card').find('[data-buyrig-count="' + id + '-1"]').removeClass("btn-secondary").addClass("btn-primary");
+        $('.card').find('[data-buyrig-count="' + id + '-5"]').removeClass("btn-primary").addClass("btn-secondary");
+        $('.card').find('[data-buyrig-count="' + id + '-1000"]').removeClass("btn-secondary").addClass("btn-primary");
+        can_buy = 1;
+    }
+    if (possible_buy >= 5 && rigData[id].price > 0 && count != rigData[id].limit) {
+        $('.card').find('[data-buyrig-count="' + id + '-5"]').removeClass("btn-secondary").addClass("btn-primary");
         can_buy = 1;
     }
 
-    // ETH RIG SHOW 1 PIECE
-    if(game.ethbalance > rigData[id].eth && rigData[id].eth > 0 && count!=rigData[id].limit)
-    {
-         $('.card').find('[data-buyrig-count="' + id+'-1"]').removeClass( "btn-secondary" ).addClass( "btn-warning" );    
-         can_buy = 1;
+    // Mostrar opción de compra de rig ETH 1 pieza
+    if (game.ethbalance > rigData[id].eth && rigData[id].eth > 0 && count != rigData[id].limit) {
+        $('.card').find('[data-buyrig-count="' + id + '-1"]').removeClass("btn-secondary").addClass("btn-warning");
+        can_buy = 1;
     }
-    if(game.ethbalance > (rigData[id].eth*5) && rigData[id].eth > 0 && count!=rigData[id].limit)
-    {
-         $('.card').find('[data-buyrig-count="' + id+'-5"]').removeClass( "btn-secondary" ).addClass( "btn-warning" );    
-         can_buy = 1;
+    if (game.ethbalance > (rigData[id].eth * 5) && rigData[id].eth > 0 && count != rigData[id].limit) {
+        $('.card').find('[data-buyrig-count="' + id + '-5"]').removeClass("btn-secondary").addClass("btn-warning");
+        can_buy = 1;
     }
-    if(game.ethbalance > (rigData[id].eth*10) && rigData[id].eth > 0 && count!=rigData[id].limit)
-    {
-         $('.card').find('[data-buyrig-count="' + id+'-1000"]').removeClass( "btn-secondary" ).addClass( "btn-warning" );  
-         can_buy = 1;  
-    }
-    // ETH RIG SHOW 1 PIECE
-
-
-    if(can_buy==1)
-    {
-        $('.card').find('[data-buyrig-button="' + id + '"]').removeClass( "btn-outline-success" ).addClass( "btn-success" );
-    }
-    else
-    {
-        $('.card').find('[data-buyrig-button="' + id + '"]').removeClass( "btn-success" ).addClass( "btn-outline-success" );  
+    if (game.ethbalance > (rigData[id].eth * 10) && rigData[id].eth > 0 && count != rigData[id].limit) {
+        $('.card').find('[data-buyrig-count="' + id + '-1000"]').removeClass("btn-secondary").addClass("btn-warning");
+        can_buy = 1;
     }
 
+    if (can_buy == 1) {
+        $('.card').find('[data-buyrig-button="' + id + '"]').removeClass("btn-outline-success").addClass("btn-success");
+    } else {
+        $('.card').find('[data-buyrig-button="' + id + '"]').removeClass("btn-success").addClass("btn-outline-success");
+    }
 }
+
 
 
 function update_army_ui(id,count,possible_buy,cost_next)
