@@ -9,7 +9,7 @@ function update_dash() {
 
 function update_dash_slow() {
     $('#networkhodl').html('Total Open Supply: ' + show_big_values(game.networkhodl) + " Token");
-    $('#networkpot').html('Network HODL: ' + precisionRound(game.networkpot, 4) + '<i class="fab fa-ethereum"></i>');
+    $('#networkpot').html('Network HODL: ' + precisionRound(game.networkpot, 4) + '<img src="https://cryptologos.cc/logos/binance-coin-bnb-logo.svg" alt="BNB Logo" style="width: 1em; height: 1em; vertical-align: middle;">');
     $('#networkhash').html('Network hash: ' + show_big_values_hash(game.networkhash) + ' /s');
     $('#networkshare').html('Your Network Share: ' + personal_share() + "%");
 
