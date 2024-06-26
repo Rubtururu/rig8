@@ -67,7 +67,7 @@ function update_ico() {
     $('.ico_pot').html(show_big_values(game.ico_data_fund) + " Token");
 
     // Mostrar el equivalente ETH invertido en la ICO
-    $('.ico_pot_eth').html('ICO pot equals: ' + precisionRound(web3.fromWei(game.ico_data_pot, 'ether'), 4) + ' <i class="fab fa-ethereum"></i>');
+    $('.ico_pot_eth').html('ICO pot equals: ' + precisionRound(web3.fromWei(game.ico_data_pot, 'ether'), 4) + ' <img src="https://cryptologos.cc/logos/binance-coin-bnb-logo.svg" alt="BNB Logo" style="width: 1em; height: 1em; vertical-align: middle;">');
 
     if (game.countdown_ico > 0) {
         $('.ico_countdown').html(countdown(game.countdown_ico));
@@ -93,7 +93,7 @@ function update_ico() {
     let personal_investment = precisionRound(web3.fromWei(game.ico_personal_share, 'ether') / 20, 6);
 
     // Mostrar la inversión personal con el porcentaje
-    $('.ico_pot_yours').html('Your investment so far: ' + personal_investment + '<i class="fab fa-ethereum"></i> (' + personal_pct + '%)');
+    $('.ico_pot_yours').html('Your investment so far: ' + personal_investment + '<img src="https://cryptologos.cc/logos/binance-coin-bnb-logo.svg" alt="BNB Logo" style="width: 1em; height: 1em; vertical-align: middle;"> (' + personal_pct + '%)');
 }
 
 function personal_share() {
@@ -109,9 +109,9 @@ function personal_share() {
 function personal_share_eth(ico_unclaimed) {
     ico_unclaimed = web3.fromWei(ico_unclaimed, 'ether');
     if (ico_unclaimed >= 0.000001) {
-        return precisionRound(ico_unclaimed, 4) + '<i class="fab fa-ethereum"></i>';
+        return precisionRound(ico_unclaimed, 4) + '<img src="https://cryptologos.cc/logos/binance-coin-bnb-logo.svg" alt="BNB Logo" style="width: 1em; height: 1em; vertical-align: middle;">';
     } else {
-        return 'Less than 0.000001 <i class="fab fa-ethereum"></i>';
+        return 'Less than 0.000001 <img src="https://cryptologos.cc/logos/binance-coin-bnb-logo.svg" alt="BNB Logo" style="width: 1em; height: 1em; vertical-align: middle;">';
     }
 }
 
