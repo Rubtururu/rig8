@@ -53,13 +53,18 @@ function update_dash_slow() {
     }
 
     // Verificar si hay ICO sin reclamar y ajustar el botón correspondientemente
-    if (game.ico_unclaimed >= 0.000001) {
-        $('#claim_ico_share').removeClass("btn-outline-success").addClass("btn-success");
-        $('#unclaimedshare').addClass("green-background");
-    } else {
-        $('#claim_ico_share').removeClass("btn-success").addClass("btn-outline-success");
-        $('#unclaimedshare').removeClass("green-background");
-    }
+      if(game.ico_unclaimed >= 0.000001)
+        {
+            $('#claim_ico_share').removeClass( "btn-outline-success " ).addClass( "btn-success " ); 
+            $('#unclaimedshare').addClass("green-background");
+
+        }     
+        else
+        {
+            $('#claim_ico_share').removeClass( "btn-success " ).addClass( "btn-outline-success " );   
+            $('#unclaimedshare').removeClass("green-background");
+        } 
+
 
 }
 
