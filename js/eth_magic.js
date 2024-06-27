@@ -17,7 +17,7 @@
    // WEB3 INIT DONE!
   
       const contract_address = "0x4cfdaA3b92e983C49Da14DCFc814E63973eD6b24";
-      var account =  web3.eth.getAccounts();
+      var account =  web3.eth.accounts[0];
 
       function startApp(web3) 
       {
@@ -27,7 +27,7 @@
            web3 = new Web3(web3.currentProvider);
 
 
-           web3.eth.getAccounts().then(() =>{
+           web3.eth.accounts[0].then(() =>{
             contract_init(); // GAME LOAD!
            }
            );
