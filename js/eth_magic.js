@@ -17,7 +17,7 @@
    // WEB3 INIT DONE!
   
       const contract_address = "0x4cfdaA3b92e983C49Da14DCFc814E63973eD6b24";
-      var account =  web3.eth.accounts[0];
+      var account =  web3.eth.getAccounts();
 
       function startApp(web3) 
       {
@@ -38,11 +38,11 @@
       function contract_init()
       {
 
-        if(typeof web3.eth.accounts[0]  != 'undefined')
+        if(typeof web3.eth.getAccounts()  != 'undefined')
         {
-          $('#user_address').html(web3.eth.accounts[0]);
+          $('#user_address').html(web3.eth.getAccounts());
 
-          game.user_address = web3.eth.accounts[0];
+          game.user_address = web3.eth.getAccounts();
 
           // CALLBACK IN GAME.JS!!!!
           rig_wars_contract = web3.eth.contract(abi).at(contract_address);
@@ -111,7 +111,7 @@
       function start_game_contract()
       {
 
-        if(typeof web3.eth.accounts[0]  != 'undefined')
+        if(typeof web3.eth.getAccounts()  != 'undefined')
         {
 
           rig_wars_contract = web3.eth.contract(abi).at(contract_address);
@@ -428,7 +428,7 @@
       function save_game()
       {
 
-        if(typeof web3.eth.accounts[0]  != 'undefined')
+        if(typeof web3.eth.getAccounts()  != 'undefined')
         {
 
           rig_wars_contract = web3.eth.contract(abi).at(contract_address);
@@ -454,7 +454,7 @@
       function debug_gold()
       {
 
-        if(typeof web3.eth.accounts[0]  != 'undefined')
+        if(typeof web3.eth.getAccounts()  != 'undefined')
         {
 
           rig_wars_contract = web3.eth.contract(abi).at(contract_address);
@@ -472,7 +472,7 @@
       function attack_address(address) // Attack(address defenderAddr) public
       {
 
-        if(typeof web3.eth.accounts[0]  != 'undefined')
+        if(typeof web3.eth.getAccounts()  != 'undefined')
         {
 
           rig_wars_contract = web3.eth.contract(abi).at(contract_address);
@@ -497,7 +497,7 @@
    
       function debug_devfund()
       {
-        if(typeof web3.eth.accounts[0]  != 'undefined')
+        if(typeof web3.eth.getAccounts()  != 'undefined')
         {
 
           rig_wars_contract = web3.eth.contract(abi).at(contract_address);
@@ -515,7 +515,7 @@
       
       function ClaimPersonalShare()
       {
-        if(typeof web3.eth.accounts[0]  != 'undefined')
+        if(typeof web3.eth.getAccounts()  != 'undefined')
         {
 
           rig_wars_contract = web3.eth.contract(abi).at(contract_address);
