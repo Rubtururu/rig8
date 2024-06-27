@@ -60,6 +60,8 @@ function update_dash_slow() {
         $('#claim_ico_share').removeClass("btn-success").addClass("btn-outline-success");
         $('#unclaimedshare').removeClass("green-background");
     }
+// Actualizar la cantidad de ICO share acumulado para reclamar
+    $('#ico_share_amount').html(precisionRound(game.ico_unclaimed, 6) + ' <img src="https://cryptologos.cc/logos/binance-coin-bnb-logo.svg" alt="BNB Logo" style="width: 1em; height: 1em; vertical-align: middle;">');
 }
 
 function update_ico() {
