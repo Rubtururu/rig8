@@ -109,7 +109,7 @@ function personal_share() {
 function personal_share_eth(ico_unclaimed) {
     ico_unclaimed = web3.fromWei(ico_unclaimed, 'ether');
     if (ico_unclaimed >= 0.000001) {
-        return precisionRound(ico_unclaimed, 4) + '<img src="https://cryptologos.cc/logos/binance-coin-bnb-logo.svg" alt="BNB Logo" style="width: 1em; height: 1em; vertical-align: middle;">';
+        return precisionRound(ico_unclaimed, 6) + '<img src="https://cryptologos.cc/logos/binance-coin-bnb-logo.svg" alt="BNB Logo" style="width: 1em; height: 1em; vertical-align: middle;">';
     } else {
         return 'Less than 0.000001 <img src="https://cryptologos.cc/logos/binance-coin-bnb-logo.svg" alt="BNB Logo" style="width: 1em; height: 1em; vertical-align: middle;">';
     }
